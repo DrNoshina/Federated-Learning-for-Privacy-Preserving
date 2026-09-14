@@ -1,0 +1,44 @@
+# OULAD - course-outcome prediction.
+# Same model and same Table 1 hyperparameters as the ASSISTments config.
+# Only the dataset and the prediction task change.
+
+dataset: "oulad"
+oulad_dir: "~/Downloads/oulad"
+oulad_exclude_withdrawn: false
+
+raw_csv: "unused-for-oulad"
+
+# ---- model (Table 1, unchanged) ----
+seq_len: 20            # 20 weekly steps
+n_features: 10
+hidden: 128
+layers: 2
+dropout: 0.5
+
+# ---- federated training (Table 1, unchanged) ----
+n_clients: 5           # one client per course module
+rounds: 60
+local_epochs: 20
+batch_size: 32
+lr: 0.0005
+grad_clip: 1.0
+max_steps_per_epoch: 200
+eval_every: 1
+centralized_epochs: 20
+
+dev_fraction: 0.15
+test_fraction: 0.15
+
+seed: 1
+device: "cuda"
+preload_to_device: true
+feature_mode: "causal"
+feature_set: "refined"
+
+threshold_policy: "dev_accuracy"
+class_weight: "none"
+swa_last_k: 5
+
+out_dir: "results"
+fig_dir: "figures"
+tag: "oulad"
